@@ -27,7 +27,7 @@ For this project, these values are converted into a binary target:
 0 → Not readmitted within 30 days
 ```
 
-The main steps in the project are:
+### Project Workflow
 
 ```text
 Data Loading
@@ -99,9 +99,9 @@ The main objectives of this project are:
 
 ---
 
-# Dataset
+## Dataset
 
-## Diabetes 130-US Hospitals for Years 1999–2008
+### Diabetes 130-US Hospitals for Years 1999–2008
 
 The project uses the **Diabetes 130-US Hospitals for Years 1999–2008** dataset.
 
@@ -127,7 +127,7 @@ The notebook contains a file-upload step that allows the dataset ZIP file to be 
 
 ---
 
-# Target Variable
+## Target Variable
 
 The original `readmitted` column contains three possible values:
 
@@ -148,7 +148,7 @@ The `>30` and `NO` categories are treated as the negative class.
 
 ---
 
-# Features Used
+## Features Used
 
 The final model uses the following features:
 
@@ -181,11 +181,11 @@ medications_per_day
 
 ---
 
-# Feature Engineering
+## Feature Engineering
 
 Some additional features were created from the original dataset.
 
-## Diagnosis Grouping
+### Diagnosis Grouping
 
 The original diagnosis variables are converted into broader diagnosis groups:
 
@@ -197,7 +197,7 @@ diag_3_group
 
 This reduces the number of individual diagnosis categories and makes them easier to use as model features.
 
-## Total Prior Visits
+### Total Prior Visits
 
 The previous outpatient, emergency, and inpatient visits are combined into one feature:
 
@@ -210,7 +210,7 @@ total_prior_visits =
 
 This gives the model a single feature representing the patient's previous hospital utilization.
 
-## Medications per Day
+### Medications per Day
 
 Medication count is normalized using the patient's length of stay:
 
@@ -223,7 +223,7 @@ This provides an approximate measure of medication usage relative to the duratio
 
 ---
 
-# Data Leakage Prevention
+## Data Leakage Prevention
 
 `discharge_disposition_id` is excluded from the final feature set.
 
@@ -233,7 +233,7 @@ The preprocessing operations are also placed inside machine learning pipelines. 
 
 ---
 
-# Train / Validation / Test Split
+## Train / Validation / Test Split
 
 The dataset is divided into three parts:
 
@@ -253,18 +253,18 @@ random_state = 42
 
 ---
 
-# Data Preprocessing
+## Data Preprocessing
 
 Different preprocessing steps are applied to numerical and categorical features.
 
-## Numerical Features
+### Numerical Features
 
 The numerical preprocessing includes:
 
 - Median imputation
 - Standard scaling using `StandardScaler`
 
-## Categorical Features
+### Categorical Features
 
 The categorical preprocessing includes:
 
@@ -283,9 +283,9 @@ This keeps the preprocessing and model steps together and helps avoid data leaka
 
 ---
 
-# Machine Learning Models
+## Machine Learning Models
 
-## 1. Logistic Regression
+### 1. Logistic Regression
 
 Logistic Regression is used as one of the main classification models.
 
@@ -298,17 +298,12 @@ The parameter search includes:
 ```text
 C = [0.01, 0.1, 1, 10, 100]
 
-class_weight = [
-    None,
-    "balanced"
-]
+class_weight = [None, "balanced"]
 ```
 
-The models are compared using **ROC-AUC**.
+ROC-AUC is used as the optimization metric during hyperparameter tuning.
 
----
-
-## 2. XGBoost
+### 2. XGBoost
 
 XGBoost is used as the second model for comparison.
 
@@ -322,17 +317,13 @@ subsample = 0.8
 colsample_bytree = 0.8
 ```
 
-Class imbalance is handled using:
-
-```text
-scale_pos_weight
-```
+Class imbalance is handled using `scale_pos_weight`.
 
 The purpose of using XGBoost alongside Logistic Regression is to compare a regularized linear model with a tree-based boosting model.
 
 ---
 
-# Handling Class Imbalance
+## Handling Class Imbalance
 
 The target variable is imbalanced, with fewer positive cases than negative cases.
 
@@ -346,19 +337,18 @@ The project therefore evaluates:
 - F1-score
 - ROC-AUC
 
-Class imbalance is handled through model configuration:
-
 ### Logistic Regression
 
+During hyperparameter tuning, both of the following options are tested:
+
 ```text
+class_weight = None
 class_weight = "balanced"
 ```
 
-is included as one of the options during hyperparameter tuning.
-
 ### XGBoost
 
-The positive-class weight is handled using:
+For XGBoost, class imbalance is handled using:
 
 ```text
 scale_pos_weight
@@ -366,7 +356,7 @@ scale_pos_weight
 
 ---
 
-# Threshold Tuning
+## Threshold Tuning
 
 The default classification threshold is `0.50`, but this threshold is not always the most useful choice for an imbalanced classification problem.
 
@@ -384,27 +374,27 @@ Changing the threshold affects the balance between precision and recall, so thre
 
 ---
 
-# Evaluation Metrics
+## Evaluation Metrics
 
 The following metrics are used to evaluate the models.
 
-## Accuracy
+### Accuracy
 
 The percentage of predictions that are correct out of all predictions.
 
-## Precision
+### Precision
 
 Precision shows how many of the patients predicted as positive were actually positive.
 
-## Recall
+### Recall
 
 Recall shows how many of the actual positive cases were correctly identified.
 
-## F1-Score
+### F1-Score
 
 F1-score combines precision and recall into a single metric.
 
-## ROC-AUC
+### ROC-AUC
 
 ROC-AUC measures how well the model separates the two classes across different classification thresholds.
 
@@ -412,7 +402,7 @@ Because the dataset is imbalanced, the metrics are considered together rather th
 
 ---
 
-# Final Results
+## Final Results
 
 The final models are evaluated on the held-out test set.
 
@@ -427,11 +417,11 @@ The relatively low precision also means that a significant number of positive pr
 
 ---
 
-# Visualizations
+## Visualizations
 
 The notebook generates several visualizations to understand model performance.
 
-## Confusion Matrix
+### Confusion Matrix
 
 The confusion matrix shows:
 
@@ -440,7 +430,7 @@ The confusion matrix shows:
 - False Positives
 - False Negatives
 
-## ROC Curve
+### ROC Curve
 
 The ROC curve shows the relationship between:
 
@@ -449,17 +439,17 @@ The ROC curve shows the relationship between:
 
 The ROC-AUC value is also displayed.
 
-## Precision-Recall Curve
+### Precision-Recall Curve
 
 The Precision-Recall curve shows how precision and recall change at different classification thresholds.
 
-## Threshold Analysis
+### Threshold Analysis
 
 The notebook also evaluates different probability thresholds to show how the model's precision, recall, and F1-score change.
 
 ---
 
-# Sample Prediction
+## Sample Prediction
 
 The notebook includes a sample prediction using a patient record from the test set.
 
@@ -483,7 +473,7 @@ The actual values are generated when the notebook is executed.
 
 ---
 
-# Technologies and Packages
+## Technologies and Packages
 
 The project is written in **Python** and uses the following libraries:
 
@@ -497,24 +487,20 @@ The project is written in **Python** and uses the following libraries:
 | `seaborn` | Statistical visualizations |
 | `jupyter` | Running the notebook locally |
 
-The main imports used by the project come from these packages.
-
 ---
 
-# How to Run
+## How to Run
 
 There are two ways to run this project:
 
 1. **Google Colab**
 2. **Locally using Jupyter Notebook**
 
----
-
-## Option 1 — Google Colab
+### Option 1 — Google Colab
 
 Google Colab is the simplest option because you don't need to configure a local Python environment.
 
-### Step 1 — Open the Notebook
+#### Step 1 — Open the Notebook
 
 Open:
 
@@ -524,7 +510,7 @@ Hospital_readmission_prediction.ipynb
 
 in Google Colab.
 
-### Step 2 — Download the Dataset
+#### Step 2 — Download the Dataset
 
 Download the:
 
@@ -536,7 +522,7 @@ dataset.
 
 Keep the dataset in ZIP format if you are using the upload cell provided in the notebook.
 
-### Step 3 — Upload the Dataset
+#### Step 3 — Upload the Dataset
 
 Run the dataset upload cell.
 
@@ -544,7 +530,7 @@ When the file selector appears, select the downloaded ZIP file.
 
 The notebook will extract the dataset before continuing.
 
-### Step 4 — Run the Notebook
+#### Step 4 — Run the Notebook
 
 Run the cells from top to bottom.
 
@@ -554,13 +540,13 @@ You can use:
 Runtime → Run all
 ```
 
-After execution, the notebook will generate the preprocessing results, model results, evaluation metrics, visualizations, and sample prediction.
+After execution, the notebook will generate the model results, evaluation metrics, visualizations, and sample prediction.
 
 ---
 
-# Option 2 — Run Locally
+### Option 2 — Run Locally
 
-## 1. Install Python
+#### 1. Install Python
 
 Make sure Python 3 is installed on your system.
 
@@ -576,9 +562,7 @@ or:
 python3 --version
 ```
 
----
-
-## 2. Clone the Repository
+#### 2. Clone the Repository
 
 Clone the repository:
 
@@ -592,9 +576,7 @@ Move into the project folder:
 cd Hospital-Readmission-Prediction
 ```
 
----
-
-## 3. Install the Required Packages
+#### 3. Install the Required Packages
 
 Install the required libraries using:
 
@@ -608,9 +590,7 @@ If your system uses `pip3`, use:
 pip3 install numpy pandas scikit-learn xgboost matplotlib seaborn jupyter
 ```
 
----
-
-## 4. Start Jupyter Notebook
+#### 4. Start Jupyter Notebook
 
 Run:
 
@@ -626,17 +606,13 @@ Open:
 Hospital_readmission_prediction.ipynb
 ```
 
----
+#### 5. Upload the Dataset
 
-## 5. Upload the Dataset
-
-Download the Diabetes 130-US Hospitals dataset and keep it in the format expected by the notebook.
+Download the Diabetes 130-US Hospitals dataset and keep it in ZIP format.
 
 Run the dataset upload cell and select the ZIP file when prompted.
 
----
-
-## 6. Run the Notebook
+#### 6. Run the Notebook
 
 Run the cells from top to bottom.
 
@@ -650,21 +626,20 @@ The notebook will then perform the data preparation, model training, evaluation,
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 Hospital-Readmission-Prediction/
 │
 ├── Hospital_readmission_prediction.ipynb
-│
 └── README.md
 ```
 
-The dataset is not included in the repository.
+The dataset is not included in the repository and needs to be uploaded separately when running the notebook.
 
 ---
 
-# Limitations
+## Limitations
 
 There are several limitations to this project:
 
@@ -678,7 +653,7 @@ There are several limitations to this project:
 
 ---
 
-# Conclusion
+## Conclusion
 
 This project was built to explore a complete machine learning classification workflow using a real-world healthcare dataset.
 
@@ -710,7 +685,7 @@ Sample Prediction
 
 The project also shows why multiple evaluation metrics are important when working with an imbalanced classification problem.
 
-In particular, accuracy alone does not tell the complete story, so precision, recall, F1-score, and ROC-AUC are also considered.
+Accuracy alone does not tell the complete story, so precision, recall, F1-score, and ROC-AUC are also considered.
 
 ---
 
