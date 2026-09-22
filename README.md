@@ -1,129 +1,156 @@
-```markdown
 # Hospital Readmission Prediction
 
-### Machine Learning Classification for 30-Day Hospital Readmission Risk
+A machine learning project for predicting whether a diabetic patient will be readmitted to the hospital within 30 days.
 
-A machine learning project that predicts whether a diabetic patient is likely to be readmitted to the hospital within 30 days using demographic, medical, admission, medication, diagnosis, and previous-visit information.
+This project uses the **Diabetes 130-US Hospitals for Years 1999–2008** dataset and compares **L2-regularized Logistic Regression** with **XGBoost**.
 
-The project implements an end-to-end machine learning workflow including data cleaning, feature engineering, preprocessing, L2-regularized Logistic Regression, XGBoost, cross-validation, class-imbalance handling, threshold tuning, and model evaluation.
-
-> Educational Disclaimer: This project is developed for educational and machine learning demonstration purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
-
-## 📌 Overview
-
-The project uses the Diabetes 130-US Hospitals for Years 1999–2008 dataset.
-
-The original 'readmitted' variable is converted into a binary classification target:
-
-| Target | Meaning |
-|   '1'  | Readmitted within 30 days |
-|   '0'  | Not readmitted within 30 days |
-
-The notebook follows this workflow:
-
-Dataset Upload
-      ↓
-Data Loading
-      ↓
-Data Cleaning
-      ↓
-Target Creation
-      ↓
-Feature Engineering
-      ↓
-Feature Selection
-      ↓
-Train / Validation / Test Split
-      ↓
-Preprocessing
-      ↓
-Logistic Regression
-      ↓
-XGBoost
-      ↓
-Threshold Tuning
-      ↓
-Final Evaluation
-      ↓
-Visualization
-      ↓
-Sample Prediction
-```
-
-## Problem Statement
-
-Build a machine learning classification system that predicts whether a diabetic patient will be **readmitted within 30 days** based on available patient, admission, diagnosis, medication, and previous-visit information.
-
-The project focuses on:
-
-- Binary classification
-- Class imbalance
-- Model comparison
-- Threshold tuning
-- Multiple evaluation metrics
-- Data leakage prevention
+> **Note:** This project is developed for educational purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
 
 ---
 
-## Project Objectives
+## Overview
 
-- Load and understand hospital patient data
-- Clean missing and inconsistent values
-- Convert the original readmission variable into a binary target
-- Perform feature engineering
-- Prevent data leakage
-- Build a preprocessing pipeline
-- Train L2-regularized Logistic Regression
-- Tune Logistic Regression using cross-validation
-- Train XGBoost as a comparison model
-- Handle class imbalance
-- Tune the classification threshold
-- Evaluate model performance
-- Visualize model performance
-- Generate a sample prediction
+Hospital readmission can be treated as a binary classification problem. In this project, patient information such as demographics, admission details, diagnoses, medications, and previous hospital visits is used to predict whether a patient will be readmitted within 30 days.
 
----
+The original `readmitted` column contains three categories:
 
-## 📊 Dataset
+| Value | Meaning |
+|---|---|
+| `<30` | Readmitted within 30 days |
+| `>30` | Readmitted after 30 days |
+| `NO` | Not readmitted |
 
-### Diabetes 130-US Hospitals for Years 1999–2008
-
-The dataset contains patient records from multiple U.S. hospitals and includes information related to:
-
-- Patient demographics
-- Hospital admission
-- Medical specialty
-- Length of hospital stay
-- Laboratory procedures
-- Medical procedures
-- Medication usage
-- Previous hospital visits
-- Diagnoses
-- Diabetes-related information
-- Readmission status
-
-The dataset is **not included in this GitHub repository**.
-
-The notebook provides a file-upload step where the dataset ZIP file can be uploaded and extracted automatically.
-
----
-
-## Target Variable
-
-The original `readmitted` column contains multiple readmission categories.
-
-For this project, it is converted into:
+For this project, these values are converted into a binary target:
 
 ```text
 1 → Readmitted within 30 days
 0 → Not readmitted within 30 days
 ```
 
+The main steps in the project are:
+
+```text
+Data Loading
+    ↓
+Data Cleaning
+    ↓
+Target Creation
+    ↓
+Feature Engineering
+    ↓
+Feature Selection
+    ↓
+Train / Validation / Test Split
+    ↓
+Preprocessing
+    ↓
+Logistic Regression
+    ↓
+XGBoost
+    ↓
+Threshold Tuning
+    ↓
+Model Evaluation
+    ↓
+Visualization
+    ↓
+Sample Prediction
+```
+
 ---
 
-## Features Used
+## Problem Statement
 
-The final model uses:
+Build a machine learning classification model that predicts whether a diabetic patient will be **readmitted within 30 days** using information available from the patient's hospital record.
+
+The project focuses on:
+
+- Binary classification
+- Feature engineering
+- Data preprocessing
+- Class imbalance
+- Model comparison
+- Cross-validation
+- Threshold tuning
+- Evaluation using multiple metrics
+- Avoiding data leakage
+
+---
+
+## Project Objectives
+
+The main objectives of this project are:
+
+- Understand and clean the hospital dataset
+- Convert the original readmission variable into a binary target
+- Select relevant features
+- Create additional features from existing patient information
+- Prevent data leakage during preprocessing and model training
+- Build a preprocessing pipeline
+- Train L2-regularized Logistic Regression
+- Tune Logistic Regression using cross-validation
+- Train XGBoost as a second model
+- Handle class imbalance
+- Compare model performance
+- Tune the classification threshold
+- Evaluate the final models on unseen test data
+- Visualize model performance
+- Generate a sample prediction
+
+---
+
+# Dataset
+
+## Diabetes 130-US Hospitals for Years 1999–2008
+
+The project uses the **Diabetes 130-US Hospitals for Years 1999–2008** dataset.
+
+The dataset contains records of diabetic patients from multiple U.S. hospitals.
+
+The available information includes:
+
+- Patient demographics
+- Hospital admission information
+- Medical specialty
+- Length of hospital stay
+- Laboratory procedures
+- Medical procedures
+- Medication information
+- Previous hospital visits
+- Diagnoses
+- Diabetes-related information
+- Readmission status
+
+The dataset is **not included in this repository**.
+
+The notebook contains a file-upload step that allows the dataset ZIP file to be uploaded and extracted before running the analysis.
+
+---
+
+# Target Variable
+
+The original `readmitted` column contains three possible values:
+
+```text
+<30
+>30
+NO
+```
+
+For this project, the target is converted to:
+
+```text
+1 → Readmitted within 30 days
+0 → Not readmitted within 30 days
+```
+
+The `>30` and `NO` categories are treated as the negative class.
+
+---
+
+# Features Used
+
+The final model uses the following features:
 
 ```text
 age
@@ -154,11 +181,13 @@ medications_per_day
 
 ---
 
-## Feature Engineering
+# Feature Engineering
 
-### Diagnosis Grouping
+Some additional features were created from the original dataset.
 
-The diagnosis variables are grouped into broader categories:
+## Diagnosis Grouping
+
+The original diagnosis variables are converted into broader diagnosis groups:
 
 ```text
 diag_1_group
@@ -166,39 +195,47 @@ diag_2_group
 diag_3_group
 ```
 
-### Total Prior Visits
+This reduces the number of individual diagnosis categories and makes them easier to use as model features.
 
-Previous outpatient, emergency, and inpatient visits are combined:
+## Total Prior Visits
+
+The previous outpatient, emergency, and inpatient visits are combined into one feature:
 
 ```text
 total_prior_visits =
-number_outpatient +
-number_emergency +
-number_inpatient
+    number_outpatient +
+    number_emergency +
+    number_inpatient
 ```
 
-### Medications per Day
+This gives the model a single feature representing the patient's previous hospital utilization.
 
-Medication usage is normalized by the length of hospital stay:
+## Medications per Day
+
+Medication count is normalized using the patient's length of stay:
 
 ```text
 medications_per_day =
-num_medications / time_in_hospital
+    num_medications / time_in_hospital
 ```
 
----
-
-## Data Leakage Prevention
-
-`discharge_disposition_id` is excluded from the final feature set because it is associated with the patient's discharge process and can contain information determined later during the hospital stay.
-
-The preprocessing steps are also placed inside machine learning pipelines so that preprocessing is performed as part of the model workflow.
+This provides an approximate measure of medication usage relative to the duration of the hospital stay.
 
 ---
 
-## Train / Validation / Test Split
+# Data Leakage Prevention
 
-The dataset is divided into:
+`discharge_disposition_id` is excluded from the final feature set.
+
+The reason is that discharge disposition is associated with information available during the discharge process and could introduce information that would not be appropriate for the intended prediction setup.
+
+The preprocessing operations are also placed inside machine learning pipelines. This ensures that transformations such as imputation, scaling, and encoding are fitted as part of the training process rather than using information from the test set.
+
+---
+
+# Train / Validation / Test Split
+
+The dataset is divided into three parts:
 
 | Dataset | Percentage |
 |---|---:|
@@ -206,57 +243,76 @@ The dataset is divided into:
 | Validation | 15% |
 | Testing | 15% |
 
-Stratified splitting is used to preserve the target-class distribution.
+A stratified split is used so that the distribution of the target classes remains similar across the different datasets.
 
-```text
+The random seed used in the project is:
+
+```python
 random_state = 42
 ```
 
 ---
 
-## Data Preprocessing
+# Data Preprocessing
 
-### Numerical Features
+Different preprocessing steps are applied to numerical and categorical features.
+
+## Numerical Features
+
+The numerical preprocessing includes:
 
 - Median imputation
-- StandardScaler
+- Standard scaling using `StandardScaler`
 
-### Categorical Features
+## Categorical Features
 
-- Most-frequent imputation
+The categorical preprocessing includes:
+
+- Most-frequent-value imputation
 - One-hot encoding
 - `handle_unknown="ignore"`
 
-The preprocessing steps are implemented using `Pipeline` and `ColumnTransformer`.
+The preprocessing is implemented using:
+
+```python
+Pipeline
+ColumnTransformer
+```
+
+This keeps the preprocessing and model steps together and helps avoid data leakage.
 
 ---
 
-## Models Used
+# Machine Learning Models
 
-### 1. Logistic Regression
+## 1. Logistic Regression
 
-The project uses **Logistic Regression with L2 regularization**.
+Logistic Regression is used as one of the main classification models.
 
-Hyperparameters are tuned using `GridSearchCV` with 5-fold cross-validation.
+The model uses **L2 regularization**.
 
-The search includes:
+Hyperparameters are tuned using `GridSearchCV` with **5-fold cross-validation**.
+
+The parameter search includes:
 
 ```text
 C = [0.01, 0.1, 1, 10, 100]
-class_weight = [None, "balanced"]
+
+class_weight = [
+    None,
+    "balanced"
+]
 ```
 
-The optimization metric is:
+The models are compared using **ROC-AUC**.
 
-```text
-ROC-AUC
-```
+---
 
-### 2. XGBoost
+## 2. XGBoost
 
-XGBoost is used as a comparison model.
+XGBoost is used as the second model for comparison.
 
-Configuration:
+The main configuration used in the project is:
 
 ```text
 n_estimators = 300
@@ -266,69 +322,97 @@ subsample = 0.8
 colsample_bytree = 0.8
 ```
 
-Class imbalance is handled using `scale_pos_weight`.
+Class imbalance is handled using:
+
+```text
+scale_pos_weight
+```
+
+The purpose of using XGBoost alongside Logistic Regression is to compare a regularized linear model with a tree-based boosting model.
 
 ---
 
-## Class Imbalance
+# Handling Class Imbalance
 
-The readmission target is imbalanced.
+The target variable is imbalanced, with fewer positive cases than negative cases.
 
-Therefore, accuracy alone is not sufficient for evaluating the models.
+Because of this, accuracy alone does not provide a complete picture of model performance.
 
-The project evaluates:
+The project therefore evaluates:
 
 - Accuracy
 - Precision
 - Recall
-- F1-Score
+- F1-score
 - ROC-AUC
 
-Class imbalance is addressed using model configuration, including `class_weight` for Logistic Regression and `scale_pos_weight` for XGBoost.
+Class imbalance is handled through model configuration:
 
----
-
-## Threshold Tuning
-
-The notebook evaluates multiple probability thresholds instead of relying only on the default `0.50` threshold.
-
-Thresholds from:
+### Logistic Regression
 
 ```text
-0.20 to 0.70
+class_weight = "balanced"
 ```
 
-are evaluated, and the threshold producing the highest validation **F1-score** is selected.
+is included as one of the options during hyperparameter tuning.
 
-This helps analyze the trade-off between precision and recall.
+### XGBoost
 
----
+The positive-class weight is handled using:
 
-## Evaluation Metrics
-
-### Accuracy
-
-Percentage of total predictions that are correct.
-
-### Precision
-
-Among predicted positive cases, the proportion that are actually positive.
-
-### Recall
-
-Among actual positive cases, the proportion correctly identified.
-
-### F1-Score
-
-The harmonic mean of precision and recall.
-
-### ROC-AUC
-
-Measures the model's ability to distinguish between the two classes across different thresholds.
+```text
+scale_pos_weight
+```
 
 ---
 
-## Final Model Results
+# Threshold Tuning
+
+The default classification threshold is `0.50`, but this threshold is not always the most useful choice for an imbalanced classification problem.
+
+In this project, multiple thresholds between:
+
+```text
+0.20 → 0.70
+```
+
+are tested.
+
+The threshold that produces the highest **validation F1-score** is selected for the final prediction.
+
+Changing the threshold affects the balance between precision and recall, so threshold tuning is included as part of the model evaluation.
+
+---
+
+# Evaluation Metrics
+
+The following metrics are used to evaluate the models.
+
+## Accuracy
+
+The percentage of predictions that are correct out of all predictions.
+
+## Precision
+
+Precision shows how many of the patients predicted as positive were actually positive.
+
+## Recall
+
+Recall shows how many of the actual positive cases were correctly identified.
+
+## F1-Score
+
+F1-score combines precision and recall into a single metric.
+
+## ROC-AUC
+
+ROC-AUC measures how well the model separates the two classes across different classification thresholds.
+
+Because the dataset is imbalanced, the metrics are considered together rather than relying only on accuracy.
+
+---
+
+# Final Results
 
 The final models are evaluated on the held-out test set.
 
@@ -337,48 +421,49 @@ The final models are evaluated on the held-out test set.
 | Logistic Regression | 71.94% | 17.65% | 41.34% | 24.74% | 0.6330 |
 | XGBoost | 71.08% | 17.92% | 44.45% | 25.54% | 0.6423 |
 
-Because the target is imbalanced, these metrics should be considered together rather than relying only on accuracy.
+These results show that accuracy alone is not enough to evaluate the models because the target classes are imbalanced.
+
+The relatively low precision also means that a significant number of positive predictions are false positives.
 
 ---
 
-## 📊 Visualizations
+# Visualizations
 
-The notebook includes:
+The notebook generates several visualizations to understand model performance.
 
-### Confusion Matrix
+## Confusion Matrix
 
-Displays:
+The confusion matrix shows:
 
 - True Positives
 - True Negatives
 - False Positives
 - False Negatives
 
-### ROC Curve
+## ROC Curve
 
-Shows the relationship between:
+The ROC curve shows the relationship between:
 
-- False Positive Rate
 - True Positive Rate
+- False Positive Rate
 
-and displays the ROC-AUC value.
+The ROC-AUC value is also displayed.
 
-### Precision-Recall Curve
+## Precision-Recall Curve
 
-Shows the relationship between:
+The Precision-Recall curve shows how precision and recall change at different classification thresholds.
 
-- Precision
-- Recall
+## Threshold Analysis
 
-across different classification thresholds.
+The notebook also evaluates different probability thresholds to show how the model's precision, recall, and F1-score change.
 
 ---
 
-## 🔮 Sample Prediction
+# Sample Prediction
 
-The notebook performs a prediction using a sample from the test set.
+The notebook includes a sample prediction using a patient record from the test set.
 
-It displays:
+The prediction displays:
 
 ```text
 Probability
@@ -386,7 +471,7 @@ Threshold
 Prediction
 ```
 
-Example:
+For example:
 
 ```text
 Probability: 0.xx
@@ -394,15 +479,42 @@ Threshold: 0.xx
 Prediction: Readmitted <30 days
 ```
 
+The actual values are generated when the notebook is executed.
+
 ---
 
-# ▶️ How to Run
+# Technologies and Packages
 
-## Google Colab
+The project is written in **Python** and uses the following libraries:
 
-Google Colab is the recommended way to run this notebook.
+| Package | Purpose |
+|---|---|
+| `numpy` | Numerical operations |
+| `pandas` | Data loading and data manipulation |
+| `scikit-learn` | Preprocessing, Logistic Regression, cross-validation and evaluation |
+| `xgboost` | XGBoost classification model |
+| `matplotlib` | Plotting and visualization |
+| `seaborn` | Statistical visualizations |
+| `jupyter` | Running the notebook locally |
 
-### 1. Open the Notebook
+The main imports used by the project come from these packages.
+
+---
+
+# How to Run
+
+There are two ways to run this project:
+
+1. **Google Colab**
+2. **Locally using Jupyter Notebook**
+
+---
+
+## Option 1 — Google Colab
+
+Google Colab is the simplest option because you don't need to configure a local Python environment.
+
+### Step 1 — Open the Notebook
 
 Open:
 
@@ -412,15 +524,7 @@ Hospital_readmission_prediction.ipynb
 
 in Google Colab.
 
-You can upload the notebook using:
-
-```text
-Google Colab
-→ File
-→ Upload notebook
-```
-
-### 2. Download the Dataset
+### Step 2 — Download the Dataset
 
 Download the:
 
@@ -428,58 +532,93 @@ Download the:
 Diabetes 130-US Hospitals for Years 1999–2008
 ```
 
-dataset and keep it in ZIP format.
+dataset.
 
-### 3. Upload the Dataset
+Keep the dataset in ZIP format if you are using the upload cell provided in the notebook.
 
-Run the dataset upload cell in the notebook.
+### Step 3 — Upload the Dataset
 
-When prompted, select the downloaded ZIP file.
+Run the dataset upload cell.
 
-The notebook automatically extracts the dataset.
+When the file selector appears, select the downloaded ZIP file.
 
-### 4. Run the Notebook
+The notebook will extract the dataset before continuing.
 
-Run all cells from top to bottom:
+### Step 4 — Run the Notebook
+
+Run the cells from top to bottom.
+
+You can use:
 
 ```text
 Runtime → Run all
 ```
 
-or:
-
-```text
-Ctrl + F9
-```
-
-### 5. View the Results
-
-The notebook will generate:
-
-- Logistic Regression results
-- XGBoost results
-- Threshold analysis
-- Final test metrics
-- Confusion matrix
-- ROC curve
-- Precision-Recall curve
-- Sample prediction
+After execution, the notebook will generate the preprocessing results, model results, evaluation metrics, visualizations, and sample prediction.
 
 ---
 
-## 💻 Running Locally
+# Option 2 — Run Locally
 
-### Install Required Libraries
+## 1. Install Python
+
+Make sure Python 3 is installed on your system.
+
+You can check it using:
 
 ```bash
-pip install numpy pandas scikit-learn xgboost matplotlib seaborn
+python --version
 ```
 
-### Start Jupyter Notebook
+or:
+
+```bash
+python3 --version
+```
+
+---
+
+## 2. Clone the Repository
+
+Clone the repository:
+
+```bash
+git clone <YOUR-GITHUB-REPOSITORY-URL>
+```
+
+Move into the project folder:
+
+```bash
+cd Hospital-Readmission-Prediction
+```
+
+---
+
+## 3. Install the Required Packages
+
+Install the required libraries using:
+
+```bash
+pip install numpy pandas scikit-learn xgboost matplotlib seaborn jupyter
+```
+
+If your system uses `pip3`, use:
+
+```bash
+pip3 install numpy pandas scikit-learn xgboost matplotlib seaborn jupyter
+```
+
+---
+
+## 4. Start Jupyter Notebook
+
+Run:
 
 ```bash
 jupyter notebook
 ```
+
+A browser window should open.
 
 Open:
 
@@ -487,11 +626,31 @@ Open:
 Hospital_readmission_prediction.ipynb
 ```
 
-Then upload the dataset ZIP when prompted.
+---
+
+## 5. Upload the Dataset
+
+Download the Diabetes 130-US Hospitals dataset and keep it in the format expected by the notebook.
+
+Run the dataset upload cell and select the ZIP file when prompted.
 
 ---
 
-## 📁 Repository Structure
+## 6. Run the Notebook
+
+Run the cells from top to bottom.
+
+You can either run each cell individually or use:
+
+```text
+Run → Run All Cells
+```
+
+The notebook will then perform the data preparation, model training, evaluation, visualization, and sample prediction.
+
+---
+
+# Project Structure
 
 ```text
 Hospital-Readmission-Prediction/
@@ -501,41 +660,60 @@ Hospital-Readmission-Prediction/
 └── README.md
 ```
 
-The dataset is not included in the repository and must be uploaded separately when running the notebook.
+The dataset is not included in the repository.
 
 ---
 
-## ⚠️ Limitations
+# Limitations
 
-- The dataset contains diabetic patient records.
-- The data represents historical hospital records from 1999–2008.
+There are several limitations to this project:
+
+- The dataset contains historical hospital records from 1999–2008.
 - The model has not been clinically validated.
-- Model performance depends on the available patient information.
-- The relatively low precision indicates that a considerable number of positive predictions are false positives.
-- The model is an educational machine learning demonstration and should not be used for clinical decision-making.
+- The dataset represents a specific population and historical healthcare setting.
+- Model performance depends on the information available in the dataset.
+- The positive class is relatively difficult to predict.
+- The relatively low precision means that many positive predictions are false positives.
+- The model should not be used for clinical decision-making.
 
 ---
 
-## Conclusion
+# Conclusion
 
-This project demonstrates an end-to-end machine learning workflow for predicting **30-day hospital readmission**.
+This project was built to explore a complete machine learning classification workflow using a real-world healthcare dataset.
 
-The notebook covers:
+The main parts of the project include:
 
 ```text
 Data Cleaning
-→ Feature Engineering
-→ Data Preprocessing
-→ Logistic Regression
-→ Cross-Validation
-→ XGBoost
-→ Threshold Tuning
-→ Model Evaluation
-→ Visualization
-→ Sample Prediction
+    ↓
+Feature Engineering
+    ↓
+Data Preprocessing
+    ↓
+Logistic Regression
+    ↓
+Cross-Validation
+    ↓
+XGBoost
+    ↓
+Class Imbalance Handling
+    ↓
+Threshold Tuning
+    ↓
+Model Evaluation
+    ↓
+Visualization
+    ↓
+Sample Prediction
 ```
 
-The project demonstrates the importance of using **Precision, Recall, F1-Score, and ROC-AUC** alongside accuracy when evaluating an imbalanced classification problem.
+The project also shows why multiple evaluation metrics are important when working with an imbalanced classification problem.
 
-> ⚕️ **This project is for educational purposes only and is not intended for clinical diagnosis, treatment, or medical decision-making.**
-```
+In particular, accuracy alone does not tell the complete story, so precision, recall, F1-score, and ROC-AUC are also considered.
+
+---
+
+## Disclaimer
+
+> **This project is for educational and machine learning practice purposes only. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.**
