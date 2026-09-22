@@ -1,3 +1,4 @@
+```markdown
 # Hospital Readmission Prediction
 
 ### Machine Learning Classification for 30-Day Hospital Readmission Risk
@@ -12,7 +13,7 @@ The project implements an end-to-end machine learning workflow including data cl
 
 The project uses the Diabetes 130-US Hospitals for Years 1999–2008 dataset.
 
-The original `readmitted` variable is converted into a binary classification target:
+The original 'readmitted' variable is converted into a binary classification target:
 
 | Target | Meaning |
 |   '1'  | Readmitted within 30 days |
@@ -48,8 +49,6 @@ Visualization
       ↓
 Sample Prediction
 ```
-
----
 
 ## Problem Statement
 
