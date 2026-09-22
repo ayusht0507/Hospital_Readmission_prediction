@@ -1,5 +1,5 @@
 ```markdown
-# 🏥 Hospital Readmission Prediction
+# Hospital Readmission Prediction
 
 ### Machine Learning Classification for 30-Day Hospital Readmission Risk
 
@@ -7,7 +7,7 @@ A machine learning project that predicts whether a diabetic patient is likely to
 
 The project implements an end-to-end machine learning workflow including **data cleaning, feature engineering, preprocessing, L2-regularized Logistic Regression, XGBoost, cross-validation, class-imbalance handling, threshold tuning, and model evaluation**.
 
-> ⚕️ **Educational Disclaimer:** This project is developed for educational and machine learning demonstration purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
+> **Educational Disclaimer:** This project is developed for educational and machine learning demonstration purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
 
 ---
 
@@ -56,7 +56,7 @@ Sample Prediction
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 Build a machine learning classification system that predicts whether a diabetic patient will be **readmitted within 30 days** based on available patient, admission, diagnosis, medication, and previous-visit information.
 
@@ -71,7 +71,7 @@ The project focuses on:
 
 ---
 
-## 🎯 Project Objectives
+## Project Objectives
 
 - Load and understand hospital patient data
 - Clean missing and inconsistent values
@@ -114,7 +114,7 @@ The notebook provides a file-upload step where the dataset ZIP file can be uploa
 
 ---
 
-## 🎯 Target Variable
+## Target Variable
 
 The original `readmitted` column contains multiple readmission categories.
 
@@ -127,7 +127,7 @@ For this project, it is converted into:
 
 ---
 
-## 🧾 Features Used
+## Features Used
 
 The final model uses:
 
@@ -160,7 +160,7 @@ medications_per_day
 
 ---
 
-## 🔧 Feature Engineering
+## Feature Engineering
 
 ### Diagnosis Grouping
 
@@ -194,7 +194,7 @@ num_medications / time_in_hospital
 
 ---
 
-## 🔒 Data Leakage Prevention
+## Data Leakage Prevention
 
 `discharge_disposition_id` is excluded from the final feature set because it is associated with the patient's discharge process and can contain information determined later during the hospital stay.
 
@@ -202,7 +202,7 @@ The preprocessing steps are also placed inside machine learning pipelines so tha
 
 ---
 
-## ✂️ Train / Validation / Test Split
+## Train / Validation / Test Split
 
 The dataset is divided into:
 
@@ -220,7 +220,7 @@ random_state = 42
 
 ---
 
-## 🧹 Data Preprocessing
+## Data Preprocessing
 
 ### Numerical Features
 
@@ -237,7 +237,7 @@ The preprocessing steps are implemented using `Pipeline` and `ColumnTransformer`
 
 ---
 
-## 🤖 Models Used
+## Models Used
 
 ### 1. Logistic Regression
 
@@ -276,7 +276,7 @@ Class imbalance is handled using `scale_pos_weight`.
 
 ---
 
-## ⚖️ Class Imbalance
+## Class Imbalance
 
 The readmission target is imbalanced.
 
@@ -294,7 +294,7 @@ Class imbalance is addressed using model configuration, including `class_weight`
 
 ---
 
-## 🎚️ Threshold Tuning
+## Threshold Tuning
 
 The notebook evaluates multiple probability thresholds instead of relying only on the default `0.50` threshold.
 
@@ -310,7 +310,7 @@ This helps analyze the trade-off between precision and recall.
 
 ---
 
-## 📏 Evaluation Metrics
+## Evaluation Metrics
 
 ### Accuracy
 
@@ -334,7 +334,7 @@ Measures the model's ability to distinguish between the two classes across diffe
 
 ---
 
-## 📈 Final Model Results
+## Final Model Results
 
 The final models are evaluated on the held-out test set.
 
@@ -522,7 +522,7 @@ The dataset is not included in the repository and must be uploaded separately wh
 
 ---
 
-## 📝 Conclusion
+## Conclusion
 
 This project demonstrates an end-to-end machine learning workflow for predicting **30-day hospital readmission**.
 
