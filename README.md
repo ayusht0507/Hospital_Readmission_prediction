@@ -1,30 +1,25 @@
-```markdown
 # Hospital Readmission Prediction
 
 ### Machine Learning Classification for 30-Day Hospital Readmission Risk
 
-A machine learning project that predicts whether a diabetic patient is likely to be **readmitted to the hospital within 30 days** using demographic, medical, admission, medication, diagnosis, and previous-visit information.
+A machine learning project that predicts whether a diabetic patient is likely to be readmitted to the hospital within 30 days using demographic, medical, admission, medication, diagnosis, and previous-visit information.
 
-The project implements an end-to-end machine learning workflow including **data cleaning, feature engineering, preprocessing, L2-regularized Logistic Regression, XGBoost, cross-validation, class-imbalance handling, threshold tuning, and model evaluation**.
+The project implements an end-to-end machine learning workflow including data cleaning, feature engineering, preprocessing, L2-regularized Logistic Regression, XGBoost, cross-validation, class-imbalance handling, threshold tuning, and model evaluation.
 
-> **Educational Disclaimer:** This project is developed for educational and machine learning demonstration purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
-
----
+> Educational Disclaimer: This project is developed for educational and machine learning demonstration purposes. It is not intended for clinical diagnosis, treatment, or real-world medical decision-making.
 
 ## 📌 Overview
 
-The project uses the **Diabetes 130-US Hospitals for Years 1999–2008** dataset.
+The project uses the Diabetes 130-US Hospitals for Years 1999–2008 dataset.
 
 The original `readmitted` variable is converted into a binary classification target:
 
 | Target | Meaning |
-|---|---|
-| `1` | Readmitted within 30 days |
-| `0` | Not readmitted within 30 days |
+|   '1'  | Readmitted within 30 days |
+|   '0'  | Not readmitted within 30 days |
 
 The notebook follows this workflow:
 
-```text
 Dataset Upload
       ↓
 Data Loading
